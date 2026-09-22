@@ -1,0 +1,17 @@
+{
+  // Le decimos al Language Server de TypeScript que use el tsconfig.json raíz
+  // (no el tsconfig.build.json que excluye los archivos *.spec.ts)
+  // Esto elimina los falsos errores en los archivos de test
+  "typescript.tsconfig.paths": {
+    "*": ["./tsconfig.json"]
+  },
+
+  // Opcional pero recomendado: que el formatter use prettier automáticamente
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Que ESLint corrija automáticamente al guardar
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}
