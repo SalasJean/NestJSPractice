@@ -1,7 +1,7 @@
 //recuerda que la mayoria viene de nestjs common asi que no olvides importarlo siempre para poder usar un crud en cada modulo no lo olvides si? esto deve funcionar asi siempre
 import {Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UsePipes, ValidationPipe} from '@nestjs/common'
 import { TasksService } from './tasks.service';
-import { createTaskDto } from './dto/create-task.dto';
+import { CreateTaskDto } from './dto/create-task.dto';
 //recuerda agregar siempre su controlador si? es muy importante
 //recuerda que por ahora esta yendo con un objeto vacio
 @Controller('/tasks')
@@ -25,7 +25,7 @@ export class TasksController{
     //aqui podemos agregar todas las rutas que consideremos necesarias asi
     @Post()
     @UsePipes(new ValidationPipe())
-    createTasks(@Body() task: createTaskDto){
+    createTasks(@Body() task: CreateTaskDto){
         //ahora que hemos instanciado en un objeto podemos usarlo con soltura asi
         return this.tasksService.createTasks(task);
         //ahora si el dto puede validar siempre y cuando aprenda a usar pipes nunca lo olvides si? porfvaor

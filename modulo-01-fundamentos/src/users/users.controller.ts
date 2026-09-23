@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateTaskDto } from '../tasks/dto/create-task.dto';
 //recuerda que este es el controlador y todo esto viene de nest/common recuerdalo si?
 
 
@@ -23,6 +24,26 @@ export class UsersController {
         //llamamos al metodo desde el uso de un objeto desde donde? pues siempre pensar si?
         return this.usersService.getUsers();
     }
+    //aqui falta agregar un getuserbyid recuerda que es nuy importante muchas veces
+    //ahora creamos otro endpoint llamado users, pero este usara el dto para 
+    //validar en tiempo real ya que ts no es de runtime sino de compilacion recuerdalo siempre si?
+    //aqui vamos a crear otro endpoint pero usando la logica osea el servicio asi
+    @Get('uses/:id')//aqui el id esta funcionando como variable nunca lo olvides porfavor si?
+    findOne(@Param('id', ParseIntPipe) id: number){//como buscamos por id aqui tiene que ser buscado por el decorador Param asi
+        //aqui hemos definido la variable del metodo el param y lo parseamos a int para evitar problemeas luego le decimos que el id es number por si acasi siempre si?
+        return this.usersService.findOne(id);
+
+    }
+    @Post('/users')
+    createUser(@Body() CreateTaskDto: CreateTaskDto){
+        //aqui vamos a aprender a usar el body el param y el famoso query recuerdalo si? porfavor
+        //aqui al aplicar el body aqui ya llego el validador del dto ademas lo estamos encapsulando con el body  ahora solo nos falta guarar dentro de lo que esta el dto asi recuerda si?
+        return this.usersService.createUser(CreateTaskDto);
+        //recuerda el mapa mental aqui estamos usando el userservice su metodo la clase que usa ese metodo no lo olvides si? porfavor
+
+
+    }
+
 }
 
 //recuerda que el uso de private es muy importante cuando
