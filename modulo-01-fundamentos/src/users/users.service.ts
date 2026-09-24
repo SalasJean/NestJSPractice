@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, HttpException, HttpStatus} from '@nestjs/common';
 import { CreateTaskDto } from '../tasks/dto/create-task.dto';
 import { ObjectUnsubscribedError } from 'rxjs';
 
@@ -62,9 +62,43 @@ export class UsersService {
         Object.assign(user, updateUserDto)//recuerda que este objeto se esta asignado si? no lo olvides
         return user;
         //aqui despues de la creacion de esta logica de negocio vamos maniana a implementar los endpoints para lugo probarlos si? no lo olvides porfavor, vamos
-        
+        //recuerda que este si ira esta vez al patch siempre si? no lo olvides porfavor
+    }
+    //ahora que hemos definido el metodo para el endpoint patch ahora vamos a crear otra logica de negodcio pero para delete ya tembien para luego ser implementado dentro del controoller si? no lo olvides porfavor, vamos
+    //aqui pensemos cuando vamos a remover algo 
+    remove(id: number){
+        //cuando eliminamos algo este tiene que ser siempre con su id para ser totalmente presisos siempre nunca lo olvides si? porfavor, vamos 
+        const user = this.findOne(id);
+        //aqui con est estamos diciendole que si no existe pues que lanze error 404 
+        //recuerdalo siempre si?
+        //aqui va la logica
+        this.users = this.users.filter( u => u.id !== id);
+        //ahora que ya hemos verificado si realmente existe ese id o no para proceder a borrarlo pues retornamos la logica que nos pide borrarlo recuerda si?
+        return {message: `User ${id} eliminado de manera correcta`};
+        //ahora que ya hemos implementado la logica de negocio procederemos a implementarlo en el endpoint recuerda
     }
 
     
 }
 //al crearnos este user service osea para la logica de negocio tmabien se creo su spec osea su modulo de testing, esto nos ayuda en primera mano testear la logica de negocio recuerdalo si?
+//todo viene heredado de next/common recuerda estos http status error recuerdalo siempre porfavor
+/**
+ * las exceptions mas usadas son las siguientes
+ * badRewquestException = 400
+ * UnauthorizeException = 401
+ * ForbidenException = 403
+ * NotFoundException = 404
+ * ConflictExeption = 409
+ * UnProcesableEntutyException = 422
+ * y el ultimo pero no menos importante
+ * InternalServerErrorExeption = 500
+ * 
+ * porfavor no olvides estos son los errores mas comunes y mas usados que tiene nestjs
+ * ademas de por ser que vienen de nestjs todas de usan de igual manera y mas simple manera asi
+ * throw new, recuerda la palabra clave de uso es esta throw new asi recuerda throw  new
+ * AHORA VAMOS A APRENDER OTRA DIFERENCIA SUPER CLAVE ESTAS EXISTEN DESDE EL 2XX AL 5XX 
+ * PERO EN ESTA OCACION VAMOS A LISTAR LOS MAS IMPORTANTES SI PARA QUE ENTIENDAS DE UNA BUENA VEZ SIEMPRE ASI
+ * AQUI VAMOS ENTENDER LA DIFERENCIA CLAVE, EL RANGO, LO QUE SIGNIFICA, Y DE QUIEN ES LA CULPA.
+ * recuerda que cuando el error em[pieza en 4xxx este generalmente esta asociado al cliente, pero cuando el error empieza con 5xx este error esta asociado al servidor recuerdalo si?
+ * 
+ */

@@ -5,8 +5,8 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
   app.useGlobalPipes(new ValidationPipe());
+  await app.listen(process.env.PORT ?? 3000);
   //llamar desde la matriz principal a este metodo es muy importante porque nos permite usar este validador de forma general en tiempo real si?
 }
 bootstrap();
